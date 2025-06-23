@@ -74,3 +74,25 @@ bookRoutes.get('/:bookId', async (req: Request, res: Response) => {
         })
     }
 })
+
+// get a update
+bookRoutes.patch('/:bookId', async (req: Request, res: Response) => {
+    try {
+        const bookId = req.params.bookId
+        const body = req.body
+        
+        const book = await Book.findByIdAndUpdate(bookId, body, {new:true})
+
+        res.json({
+            success: true,
+            message: "Books updated successfully",
+            data: book
+        })
+    } catch (error: any) {
+        res.status(400).json({
+            message: error.message,
+            success: false,
+            error
+        })
+    }
+})
