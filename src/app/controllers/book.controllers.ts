@@ -16,7 +16,7 @@ bookRoutes.post('/', async (req: Request, res: Response) => {
             data: book
         })
     } catch (error: any) {
-        res.json({
+        res.status(400).json({
             message: error.message,
             success: false,
             error
@@ -27,15 +27,24 @@ bookRoutes.post('/', async (req: Request, res: Response) => {
 
 bookRoutes.get('/', async (req: Request, res: Response) => {
     try {
-        const book = await Book.find()
+        const { filter, sortBy, sort, limit = '10' } = req.query;
+        
+        const query: any = {};
+        if (filter) {
+            query.genre = filter; 
+        }
+        
+        const books = await Book.find(query)
+      .sort({ [sortBy as string]: sort === 'asc' ? 1 : -1 })
+      .limit(Number(limit));
 
         res.json({
             success: true,
             message: "Books retrieved successfully",
-            data: book
+            data: books
         })
     } catch (error: any) {
-        res.json({
+        res.status(400).json({
             message: error.message,
             success: false,
             error
