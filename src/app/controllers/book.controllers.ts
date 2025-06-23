@@ -75,7 +75,7 @@ bookRoutes.get('/:bookId', async (req: Request, res: Response) => {
     }
 })
 
-// get a update
+// update a book
 bookRoutes.patch('/:bookId', async (req: Request, res: Response) => {
     try {
         const bookId = req.params.bookId
@@ -87,6 +87,27 @@ bookRoutes.patch('/:bookId', async (req: Request, res: Response) => {
             success: true,
             message: "Books updated successfully",
             data: book
+        })
+    } catch (error: any) {
+        res.status(400).json({
+            message: error.message,
+            success: false,
+            error
+        })
+    }
+})
+
+// delete a book
+bookRoutes.delete('/:bookId', async (req: Request, res: Response) => {
+    try {
+        const bookId = req.params.bookId
+        
+        await Book.findByIdAndDelete(bookId)
+
+        res.json({
+            success: true,
+            message: "Books deleted successfully",
+            data: null
         })
     } catch (error: any) {
         res.status(400).json({
