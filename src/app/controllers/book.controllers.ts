@@ -3,6 +3,7 @@ import { Book } from '../models/book.model'
 
 export const bookRoutes = express.Router()
 
+// create a book
 bookRoutes.post('/', async (req: Request, res: Response) => {
 
     try {
@@ -25,6 +26,7 @@ bookRoutes.post('/', async (req: Request, res: Response) => {
 
 })
 
+// get all books
 bookRoutes.get('/', async (req: Request, res: Response) => {
     try {
         const { filter, sortBy, sort, limit = '10' } = req.query;
@@ -42,6 +44,27 @@ bookRoutes.get('/', async (req: Request, res: Response) => {
             success: true,
             message: "Books retrieved successfully",
             data: books
+        })
+    } catch (error: any) {
+        res.status(400).json({
+            message: error.message,
+            success: false,
+            error
+        })
+    }
+})
+
+// get a book
+bookRoutes.get('/:bookId', async (req: Request, res: Response) => {
+    try {
+        const bookId = req.params.bookId
+        
+        const book = await Book.findById(bookId)
+
+        res.json({
+            success: true,
+            message: "Books retrieved successfully",
+            data: book
         })
     } catch (error: any) {
         res.status(400).json({
