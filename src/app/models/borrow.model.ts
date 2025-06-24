@@ -1,5 +1,6 @@
 import mongoose, { Schema, Types, model } from "mongoose";
 import { IBorrow } from "../interfaces/borrow.interface";
+import { Book } from "./book.model";
 
 const borrowSchema = new mongoose.Schema<IBorrow>(
     {
@@ -28,5 +29,22 @@ const borrowSchema = new mongoose.Schema<IBorrow>(
         versionKey: false
     }
 )
+
+borrowSchema.post('save', async function (doc) {
+    const book = await Book.findById(doc.book)
+
+    if (!book) {
+        console.error("Book not found!");
+        return;
+      }
+
+    book.copies = book.copies - doc.quantity;
+
+    if (book.copies === 0) {
+        book.available = false;
+    }
+
+    await book.save();
+})
 
 export const Borrow = model<IBorrow>("Borrow", borrowSchema)

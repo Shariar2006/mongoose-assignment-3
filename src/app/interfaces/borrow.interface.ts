@@ -1,4 +1,5 @@
-import { Types } from 'mongoose'
+import { Model, Types } from 'mongoose'
+import { IBook } from './book.interface'
 
 export interface IBorrow {
     book: Types.ObjectId,
