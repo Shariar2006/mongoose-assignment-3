@@ -47,4 +47,5 @@ const bookSchema = new mongoose.Schema<IBook>(
     }
 )
 
+
 export const Book = model<IBook>("Book", bookSchema)

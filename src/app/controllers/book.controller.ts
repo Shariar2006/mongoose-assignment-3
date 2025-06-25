@@ -81,6 +81,10 @@ bookRoutes.patch('/:bookId', async (req: Request, res: Response) => {
         const bookId = req.params.bookId
         const body = req.body
         
+        if(body?.copies > 0){
+            body.available = true
+        }
+        
         const book = await Book.findByIdAndUpdate(bookId, body, {new:true})
 
         res.json({
