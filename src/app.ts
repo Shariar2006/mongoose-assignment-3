@@ -14,4 +14,8 @@ app.get('/', (req: Request, res: Response) => {
     res.send('server starting')
 })
 
+app.use((req: Request, res: Response) => {
+    res.status(404).json({message:'404 route not found'})
+})
+
 export default app
