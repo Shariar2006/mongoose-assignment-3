@@ -45,6 +45,44 @@ A full-featured Library Management System built with **Express.js**, **TypeScrip
 
  ---
 
+## ⚙️ Setup Instructions
+
+1. **Clone the Repository**
+```bash
+   git clone https://github.com/Shariar2006/mongoose-assignment-3.git
+   cd library-management-system
+```
+
+2. **Install Dependencies**
+```bash
+  # pnpm
+  pnpm install
+
+  # or
+
+  # npm
+  npm install
+```
+
+3. **Build and Run**
+```bash
+# Development mode
+pnpm run dev
+
+# or
+
+npm run dev
+
+# Build
+pnpm run build
+
+# or
+
+npm run build
+
+```
+---
+
  ## 🔌 API Endpoints
 
  ### 📚 BOOK ROUTES
