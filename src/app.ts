@@ -6,7 +6,7 @@ import cors from 'cors'
 const app: Application = express()
 
 // cors
-app.use(cors({origin: 'http://localhost:5173'}))
+app.use(cors({origin: ['http://localhost:5173', 'https://readify-phi.vercel.app']}))
 app.use(express.json())
 
 // routes

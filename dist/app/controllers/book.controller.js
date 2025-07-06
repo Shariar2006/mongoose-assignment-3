@@ -94,6 +94,11 @@ exports.bookRoutes.patch('/:bookId', (req, res) => __awaiter(void 0, void 0, voi
             if ((body === null || body === void 0 ? void 0 : body.copies) > 0) {
                 body.available = true;
             }
+            else if ((body === null || body === void 0 ? void 0 : body.copies) == 0) {
+                body.copies = 0;
+                body.available = false;
+            }
+            console.log(body);
             const book = yield book_model_1.Book.findByIdAndUpdate(bookId, body, { new: true });
             res.json({
                 success: true,
